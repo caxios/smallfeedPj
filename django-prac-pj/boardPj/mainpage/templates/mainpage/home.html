@@ -1,0 +1,29 @@
+{% extends 'mainpage/base.html' %}
+{% block content %}
+{% if not user.is_authenticated %}
+    <div>
+        <div>
+            <h1>You Need To Login/Register First</h1>
+        </div>
+        <div>
+            <h2><a href='{% url "login" %}'>Login</a></h2>
+        </div>
+        <div>
+            <h2><a href='{% url "register" %}'>Register</a></h2>
+        </div>
+    </div>
+    {% else %}
+    {% for feed in feeds %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ feed.author }}</a>
+              <small class="text-muted">{{ feed.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ feed.title }}</a></h2>
+            <p class="article-content">{{ feed.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
